@@ -3,87 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AFIX Mining & Ecosystem</title>
+    <title>AFIX Ecosystem | Web3 Decentralized Exchange</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-color: #0b0e14;
-            --card-bg: #131b2e;
-            --accent-glow: #00d2ff;
+            --bg-deep: #050814;
+            --bg-card: rgba(12, 19, 36, 0.8);
+            --border-color: rgba(0, 210, 255, 0.18);
+            --accent-blue: #00d2ff;
+            --accent-dark-blue: #1b365d;
             --accent-green: #00ff88;
+            --accent-glow: rgba(0, 210, 255, 0.45);
             --text-main: #ffffff;
-            --text-secondary: #94a3b8;
+            --text-secondary: #8a99ad;
             --danger: #ff4757;
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-        
-        /* Header */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(19, 27, 46, 0.7); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .user-info { display: flex; align-items: center; gap: 10px; }
-        .avatar-box { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-glow); overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
+        body { background: radial-gradient(circle at top, #101b35 0%, var(--bg-deep) 100%); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+        /* هدر فوق‌حرفه‌ای */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: rgba(8, 13, 26, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 99; }
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        .avatar-box { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--accent-blue); box-shadow: 0 0 15px var(--accent-glow); overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
         .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .admin-badge { background: linear-gradient(45deg, #ff4757, #ff6b81); color: white; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; display: none; }
-        
-        /* Main Container */
-        .container { flex: 1; padding: 20px; padding-bottom: 90px; max-width: 500px; margin: 0 auto; width: 100%; }
+        .admin-badge { background: linear-gradient(135deg, #ff4757, #ff6b81); color: white; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: bold; display: none; box-shadow: 0 0 10px rgba(255,71,87,0.4); }
+
+        /* کانتینر اصلی */
+        .container { flex: 1; padding: 20px; padding-bottom: 100px; max-width: 500px; margin: 0 auto; width: 100%; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content.active { display: block; animation: fadeIn 0.35s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Mining Section */
-        .mining-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
-        .circle-progress { width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, #1a2642 0%, #0d1322 100%); border: 4px solid var(--accent-glow); box-shadow: 0 0 30px rgba(0, 210, 255, 0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; cursor: pointer; transition: 0.2s; }
-        .circle-progress:active { transform: scale(0.96); }
-        .circle-logo { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; object-fit: cover; border: 2px solid var(--accent-green); }
-        .mining-title { font-size: 18px; font-weight: bold; color: var(--accent-glow); margin-bottom: 5px; }
-        .mining-reward { font-size: 14px; color: var(--text-secondary); }
-        .status-text { margin-top: 25px; font-size: 15px; font-weight: bold; color: var(--accent-green); text-align: center; }
+        /* کارت‌های شیشه‌ای */
+        .card { background: var(--bg-card); backdrop-filter: blur(12px); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .card-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--accent-blue); }
+
+        /* ماینینگ توربینی (پروانه‌ای) */
+        .mining-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 15px; }
+        .turbine-ring { width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, #132247 0%, #070d1d 100%); border: 4px solid var(--accent-blue); box-shadow: 0 0 45px var(--accent-glow), inset 0 0 25px rgba(0,210,255,0.25); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; cursor: pointer; transition: 0.2s; }
+        .turbine-ring.spinning::after { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 4px dashed var(--accent-green); animation: spinTurbine 6s linear infinite; pointer-events: none; }
+        @keyframes spinTurbine { 100% { transform: rotate(360deg); } }
         
-        /* Cards */
-        .card { background: var(--card-bg); border-radius: 16px; padding: 16px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
-        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        
-        /* Buttons & Inputs */
-        .btn-action { background: var(--accent-glow); color: #000; border: none; padding: 6px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-success { background: var(--accent-green); color: #000; border: none; padding: 10px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .btn-danger { background: var(--danger); color: #fff; border: none; padding: 6px 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        input[type="text"], input[type="file"] { width: 100%; padding: 10px; background: #0b0e14; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; margin-bottom: 10px; font-size: 13px; }
+        .circle-logo { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 8px; object-fit: cover; border: 2px solid var(--accent-green); box-shadow: 0 0 12px var(--accent-green); }
+        .mining-title { font-size: 16px; font-weight: bold; color: #fff; margin-bottom: 4px; }
+        .mining-reward { font-size: 12px; color: var(--text-secondary); }
+        .status-text { margin-top: 25px; font-size: 14px; font-weight: bold; color: var(--accent-green); text-align: center; text-shadow: 0 0 8px rgba(0,255,136,0.3); }
 
-        /* Banner Modal Popup */
-        #banner-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .banner-box { background: var(--card-bg); width: 100%; max-width: 400px; border-radius: 20px; padding: 20px; position: relative; border: 2px solid var(--accent-glow); text-align: center; }
-        .close-banner { position: absolute; top: 10px; left: 10px; background: var(--danger); color: white; border: none; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-        .banner-box img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 12px; margin-top: 10px; }
+        /* دکمه‌ها و اینپوت‌ها */
+        .btn-action { background: linear-gradient(135deg, var(--accent-blue), #0072ff); color: #000; border: none; padding: 7px 16px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,210,255,0.3); }
+        .btn-success { background: linear-gradient(135deg, var(--accent-green), #00b359); color: #000; border: none; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,255,136,0.3); }
+        input[type="text"], input[type="number"], input[type="file"] { width: 100%; padding: 12px; background: rgba(4, 7, 15, 0.9); border: 1px solid var(--border-color); border-radius: 10px; color: #fff; margin-bottom: 12px; font-size: 13px; outline: none; }
+        input:focus { border-color: var(--accent-blue); box-shadow: 0 0 8px var(--accent-glow); }
 
-        /* Bottom Navigation */
-        nav { position: fixed; bottom: 0; left: 0; right: 0; background: #0f1523; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.08); z-index: 100; }
-        .nav-item { background: none; border: none; color: var(--text-secondary); display: flex; flex-direction: column; align-items: center; font-size: 11px; cursor: pointer; gap: 4px; transition: 0.2s; }
-        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
-        .nav-item.active { color: var(--accent-glow); }
-        .nav-item.active svg { fill: var(--accent-glow); }
+        /* بازار P2P تب‌دار */
+        .p2p-nav { display: flex; gap: 10px; margin-bottom: 15px; }
+        .p2p-tab-btn { flex: 1; padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); font-weight: bold; font-size: 12px; cursor: pointer; text-align: center; }
+        .p2p-tab-btn.active { background: var(--accent-blue); color: #000; border-color: var(--accent-blue); box-shadow: 0 0 12px var(--accent-glow); }
+
+        /* مودال‌ها */
+        .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(2, 4, 10, 0.88); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-box { background: #0b1326; width: 100%; max-width: 410px; border-radius: 20px; padding: 20px; border: 1px solid var(--accent-blue); box-shadow: 0 0 35px var(--accent-glow); position: relative; }
+        .close-modal { position: absolute; top: 12px; left: 12px; background: var(--danger); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* نویگیشن پایین رنگی و حرفه‌ای */
+        nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(7, 11, 22, 0.92); backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 0 12px 0; border-top: 1px solid var(--border-color); z-index: 100; }
+        .nav-item { background: none; border: none; color: var(--text-secondary); display: flex; flex-direction: column; align-items: center; font-size: 11px; cursor: pointer; gap: 5px; transition: 0.3s; width: 20%; }
+        .nav-item svg { width: 24px; height: 24px; fill: currentColor; transition: 0.3s; }
+        .nav-item.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-glow); }
+        .nav-item.active svg { fill: var(--accent-blue); filter: drop-shadow(0 0 6px var(--accent-blue)); transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-    <!-- پاپ‌آپ بنر مدیریت -->
-    <div id="banner-modal">
-        <div class="banner-box">
-            <button class="close-banner" onclick="closeBannerModal()">×</button>
-            <h3 style="color: var(--accent-glow); margin-bottom: 5px;">📢 اطلاعیه مهم مدیریت</h3>
-            <p id="banner-caption" style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;"></p>
-            <img id="banner-img-element" src="" alt="Admin Banner">
+    <!-- مودال ثبت سفارش فروش -->
+    <div id="modal-sell" class="modal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('modal-sell')">×</button>
+            <h3 style="color: var(--accent-blue); margin-bottom: 10px;">🏷️ ثبت سفارش فروش AFIX</h3>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">مقدار توکنی که می‌خواهید برای فروش در بازار قرار دهید (از موجودی شما کسر و در بازار قفل می‌شود):</p>
+            <input type="number" id="sell-amount" placeholder="تعداد AFIX (مثلا 10)">
+            <button class="btn-success" onclick="confirmSellOrder()">تایید و انتشار در بازار</button>
+        </div>
+    </div>
+
+    <!-- مودال خرید و واسطه گری شبکه -->
+    <div id="modal-buy" class="modal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('modal-buy')">×</button>
+            <h3 style="color: var(--accent-green); margin-bottom: 10px;">🛡️ خرید امن از طریق واسطه شبکه</h3>
+            <div id="buy-details" style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;"></div>
+            <input type="text" id="tx-hash-input" placeholder="شماره پیگیری / هش تراکنش بانکی (TxID)...">
+            <button class="btn-success" onclick="verifyAndCompleteBuy()">بررسی بلاکچین و واریز خودکار ارز</button>
+        </div>
+    </div>
+
+    <!-- مودال بنر مدیریت -->
+    <div id="banner-modal" class="modal">
+        <div class="modal-box" style="text-align: center;">
+            <button class="close-modal" onclick="closeModal('banner-modal')">×</button>
+            <h3 style="color: var(--accent-blue); margin-bottom: 8px;">📢 اطلاعیه رسمی صرافی</h3>
+            <p id="banner-caption" style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;"></p>
+            <img id="banner-img-element" src="" alt="Banner" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-color);">
         </div>
     </div>
 
     <header>
         <div class="user-info">
             <div class="avatar-box">
-                <img id="user-avatar" src="images/logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/45'">
+                <img id="user-avatar" src="images/logo.png" alt="Logo" onerror="this.src='https://api.iconify.design/solar:shield-keyhole-bold-duotone.svg?color=%2300d2ff'">
             </div>
             <div>
-                <div id="username" style="font-weight: bold; font-size: 14px;">کاربر AFIX</div>
-                <div style="font-size: 11px; color: var(--text-secondary);">موجودی: <span id="balance">0.00</span> AFIX</div>
+                <div id="username" style="font-weight: bold; font-size: 13px;">تیرکس کاربر</div>
+                <div style="font-size: 11px; color: var(--text-secondary);">دارایی کل: <span id="balance" style="color: var(--accent-blue); font-weight: bold;">0.00</span> AFIX</div>
             </div>
         </div>
         <div id="admin-badge" class="admin-badge">مدیر کل</div>
@@ -91,72 +123,86 @@
 
     <div class="container">
         
-        <!-- تب اول: استخراج -->
+        <!-- تب استخراج توربینی -->
         <div id="tab-mining" class="tab-content active">
             <div class="mining-container">
-                <div class="circle-progress" id="mine-btn" onclick="startMining()">
-                    <img src="images/logo.png" class="circle-logo" alt="Logo" onerror="this.src='https://via.placeholder.com/60'">
-                    <div class="mining-title">استخراج AFIX</div>
+                <div class="turbine-ring" id="mine-btn" onclick="startMining()">
+                    <img src="images/logo.png" class="circle-logo" alt="Logo" onerror="this.src='https://api.iconify.design/solar:cpu-bold-duotone.svg?color=%2300ff88'">
+                    <div class="mining-title">توربین ماینینگ</div>
                     <div class="mining-reward">۵ واحد / ۲۴ ساعت</div>
                 </div>
-                <div class="status-text" id="mining-status">آماده برای شروع استخراج</div>
+                <div class="status-text" id="mining-status">آماده برای استخراج ثانیه‌ای</div>
             </div>
         </div>
 
-        <!-- تب دوم: کیف پول -->
+        <!-- تب کیف پول -->
         <div id="tab-wallet" class="tab-content">
             <div class="card">
-                <div class="card-title">💰 دارایی‌های شما</div>
-                <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 10px;">ارزش لحظه‌ای بر اساس قیمت بازار:</p>
-                <h2 style="color: var(--accent-green);"><span id="wallet-balance">0.00</span> AFIX</h2>
-                <p style="font-size: 12px; margin-top: 5px; color: var(--text-secondary);">تقریبی معادل: <span id="toman-value">0</span> تومان</p>
+                <div class="card-title">💰 کیف پول مرکزی AFIX</div>
+                <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 6px;">موجودی قابل معامله:</p>
+                <h2 style="color: var(--accent-green); font-size: 24px;"><span id="wallet-balance">0.00</span> <span style="font-size: 13px;">AFIX</span></h2>
+                <p style="font-size: 12px; margin-top: 8px; color: var(--text-secondary);">ارزش تخمینی به تومان: <b id="toman-value" style="color: #fff;">0</b> تومان</p>
             </div>
         </div>
 
-        <!-- تب سوم: بازار P2P -->
+        <!-- تب بازار P2P دوطرفه -->
         <div id="tab-p2p" class="tab-content">
             <div class="card">
-                <div class="card-title">🛒 بازار P2P (خرید و فروش امن)</div>
-                <p style="font-size: 12px; color: var(--text-secondary);">قیمت لحظه‌ای هر واحد AFIX: <b id="live-price" style="color: var(--accent-green);">300,000 تومان</b></p>
-                <button class="btn-success" onclick="openOrderModal()">+ ثبت سفارش فروش AFIX</button>
-            </div>
-        </div>
+                <div class="card-title">🛒 بازار معاملاتی P2P (واسطه امن)</div>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">نرخ لحظه‌ای: <b id="live-price" style="color: var(--accent-green);">300,000 تومان</b></p>
+                
+                <div class="p2p-nav">
+                    <button class="p2p-tab-btn active" onclick="switchP2PTab('buy', this)">خرید AFIX</button>
+                    <button class="p2p-tab-btn" onclick="switchP2PTab('sell', this)">فروش AFIX</button>
+                </div>
 
-        <!-- تب چهارم: مأموریت‌ها -->
-        <div id="tab-tasks" class="tab-content">
-            <div class="card">
-                <div class="card-title">🎯 مرکز مأموریت‌ها</div>
-                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">با عضویت در هر کانال، <b>۱ دقیقه</b> از تایمر ماینینگ خود کم کنید!</p>
-                <div id="tasks-list">
-                    <!-- مأموریت‌ها اینجا لود میشن -->
+                <!-- بخش خرید از بازار -->
+                <div id="p2p-buy-section">
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">سفارش‌های فعال فروشندگان تاییدشده:</div>
+                    <div id="market-orders-list"></div>
+                </div>
+
+                <!-- بخش ثبت فروش در بازار -->
+                <div id="p2p-sell-section" style="display: none;">
+                    <button class="btn-success" onclick="openModal('modal-sell')">+ ثبت سفارش فروش جدید</button>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 15px; margin-bottom: 8px;">سفارش‌های فعال شما در بازار:</div>
+                    <div id="my-sell-orders"></div>
                 </div>
             </div>
         </div>
 
-        <!-- تب پنجم: پنل مدیریت ادمین -->
+        <!-- تب مأموریت‌ها -->
+        <div id="tab-tasks" class="tab-content">
+            <div class="card">
+                <div class="card-title">🎯 مرکز مأموریت‌های اکوسیستم</div>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;">با عضویت در کانال‌های همکار، <b>۱ دقیقه</b> از تایمر ماینینگ خود کم کنید.</p>
+                <div id="tasks-list"></div>
+            </div>
+        </div>
+
+        <!-- تب مدیریت -->
         <div id="tab-admin" class="tab-content">
             <div class="card" style="border-color: var(--danger);">
-                <div class="card-title" style="color: var(--danger);">⚙️ پنل مدیریت ادمین</div>
+                <div class="card-title" style="color: var(--danger);">⚙️ پنل مدیریت ارشد</div>
                 
-                <h4 style="font-size: 14px; margin-top: 10px; color: var(--accent-glow);">➕ افزودن کانال مأموریت</h4>
-                <input type="text" id="admin-channel-name" placeholder="نام کانال">
-                <input type="text" id="admin-channel-url" placeholder="لينک کانال (https://t.me/...)">
-                <button class="btn-success" onclick="addNewTask()">ثبت کانال مأموریت</button>
+                <h4 style="font-size: 13px; margin-top: 5px; color: var(--accent-blue);">➕ افزودن مأموریت کانال</h4>
+                <input type="text" id="admin-channel-name" placeholder="عنوان کانال">
+                <input type="text" id="admin-channel-url" placeholder="لينک (https://t.me/...)">
+                <button class="btn-success" onclick="addNewTask()">ثبت در شبکه</button>
 
-                <h4 style="font-size: 14px; margin-top: 20px; color: var(--accent-glow);">🖼️ آپلود بنر و اطلاعیه جدید</h4>
-                <input type="text" id="admin-banner-text" placeholder="متن اطلاعیه بنر...">
+                <h4 style="font-size: 13px; margin-top: 20px; color: var(--accent-blue);">🖼️ انتشار اطلاعیه / بنر</h4>
+                <input type="text" id="admin-banner-text" placeholder="متن پیام...">
                 <input type="file" id="admin-banner-file" accept="image/*">
-                <button class="btn-success" onclick="uploadBanner()">انتشار بنر برای همه کاربران</button>
-                <button class="btn-danger" style="margin-top: 10px; width: 100%;" onclick="removeBanner()">حذف بنر فعال</button>
+                <button class="btn-success" onclick="uploadBanner()">ارسال برای تمام کاربران</button>
             </div>
         </div>
 
     </div>
 
-    <!-- نویگیشن پایین -->
+    <!-- نویگیشن پایین رنگی و درخشان -->
     <nav>
         <button class="nav-item active" onclick="switchTab('mining', this)">
-            <svg viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
             استخراج
         </button>
         <button class="nav-item" onclick="switchTab('wallet', this)">
@@ -168,11 +214,11 @@
             بازار
         </button>
         <button class="nav-item" onclick="switchTab('tasks', this)">
-            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.89 3,5V19C3,20.1 3.89,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.89 20.1,3 19,3M10,17L5,12L6.41,10.59L10,14.17L17.59,6.58L19,8L10,17Z"/></svg>
             مأموریت‌ها
         </button>
         <button class="nav-item" id="nav-admin" onclick="switchTab('admin', this)">
-            <svg viewBox="0 0 24 24"><path d="M12,2L1,21H23L12,2M12,6L18.5,18H5.5L12,6Z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.53,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.97 4.47,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.47,18.95 4.73,19.03 4.95,18.95L15.5,14.63Z"/></svg>
             مدیریت
         </button>
     </nav>
@@ -182,7 +228,7 @@
         tg.expand();
 
         let user = tg.initDataUnsafe && tg.initDataUnsafe.user;
-        let userId = user ? user.id : 8443938939; 
+        let userId = user ? user.id : 8443938939;
         let userName = user ? (user.first_name || user.username) : "سامان";
         document.getElementById('username').innerText = userName;
 
@@ -194,12 +240,12 @@
         }
 
         let balance = parseFloat(localStorage.getItem('afix_balance')) || 0.00;
-        let livePriceToman = 300000; // قیمت پایه ۳۰۰ هزار تومان
+        let livePriceToman = 300000;
         updateUI();
 
         function updateUI() {
-            document.getElementById('balance').innerText = balance.toFixed(2);
-            document.getElementById('wallet-balance').innerText = balance.toFixed(2);
+            document.getElementById('balance').innerText = balance.toFixed(4);
+            document.getElementById('wallet-balance').innerText = balance.toFixed(4);
             document.getElementById('toman-value').innerText = Math.round(balance * livePriceToman).toLocaleString();
             document.getElementById('live-price').innerText = livePriceToman.toLocaleString() + ' تومان';
         }
@@ -211,71 +257,206 @@
             element.classList.add('active');
         }
 
-        // --- سیستم ماینینگ ---
-        let miningEndTime = parseInt(localStorage.getItem('afix_mining_end')) || 0;
+        function switchP2PTab(type, el) {
+            document.querySelectorAll('.p2p-tab-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            if(type === 'buy') {
+                document.getElementById('p2p-buy-section').style.display = 'block';
+                document.getElementById('p2p-sell-section').style.display = 'none';
+                renderMarketOrders();
+            } else {
+                document.getElementById('p2p-buy-section').style.display = 'none';
+                document.getElementById('p2p-sell-section').style.display = 'block';
+                renderMyOrders();
+            }
+        }
 
-        function checkMiningTimer() {
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // --- ماینینگ ثانیه‌ای و توربین چرخان ---
+        let miningEndTime = parseInt(localStorage.getItem('afix_mining_end')) || 0;
+        let miningStartTime = parseInt(localStorage.getItem('afix_mining_start')) || 0;
+        const totalMiningReward = 5.0; // ۵ واحد در ۲۴ ساعت
+        const totalMiningDuration = 24 * 60 * 60 * 1000; // ۲۴ ساعت به میلی‌ثانیه
+        const rewardPerSecond = totalMiningReward / (24 * 60 * 60);
+
+        function checkMiningEngine() {
             let now = new Date().getTime();
             let statusEl = document.getElementById('mining-status');
-            let btnEl = document.getElementById('mine-btn');
+            let turbineEl = document.getElementById('mine-btn');
 
             if (now < miningEndTime) {
-                let distance = miningEndTime - now;
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                turbineEl.classList.add('spinning');
+                let elapsed = now - miningStartTime;
+                let remaining = miningEndTime - now;
+                
+                let h = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                let s = Math.floor((remaining % (1000 * 60)) / 1000);
 
-                statusEl.innerText = `⏳ در حال استخراج: ${hours}ساعت و ${minutes}دقیقه و ${seconds}ثانیه`;
-                btnEl.style.opacity = '0.6';
-                btnEl.style.pointerEvents = 'none';
+                statusEl.innerText = `⚙️ توربین فعال: ${h}س و ${m}م و ${s}ث باقی‌مانده`;
+
+                // محاسبه ثانیه‌ای ارز استخراج شده
+                let lastCheck = parseInt(localStorage.getItem('afix_last_check')) || now;
+                let secondsPassed = (now - lastCheck) / 1000;
+                if(secondsPassed >= 1) {
+                    let earned = secondsPassed * rewardPerSecond;
+                    balance += earned;
+                    localStorage.setItem('afix_balance', balance);
+                    localStorage.setItem('afix_last_check', now);
+                    updateUI();
+                }
             } else {
-                statusEl.innerText = '✨ آماده برای استخراج (کلیک کنید)';
-                btnEl.style.opacity = '1';
-                btnEl.style.pointerEvents = 'auto';
+                turbineEl.classList.remove('spinning');
+                statusEl.innerText = '✨ توربین آماده استخراج (کلیک کنید)';
+                localStorage.setItem('afix_last_check', now);
             }
         }
 
         function startMining() {
             let now = new Date().getTime();
-            miningEndTime = now + (24 * 60 * 60 * 1000);
+            miningStartTime = now;
+            miningEndTime = now + totalMiningDuration;
+            localStorage.setItem('afix_mining_start', miningStartTime);
             localStorage.setItem('afix_mining_end', miningEndTime);
+            localStorage.setItem('afix_last_check', now);
             
-            balance += 5.0;
-            localStorage.setItem('afix_balance', balance);
-            updateUI();
-            tg.showAlert('🎉 ۵ واحد AFIX با موفقیت استخراج شد!');
-            checkMiningTimer();
+            tg.showAlert('🎉 توربین ماینینگ با موفقیت فعال شد و ثانیه‌ای ارز تولید می‌کند!');
+            checkMiningEngine();
         }
 
-        setInterval(checkMiningTimer, 1000);
-        checkMiningTimer();
+        setInterval(checkMiningEngine, 1000);
+        checkMiningEngine();
 
-        // --- مدیریت مأموریت‌ها (یک‌بار مصرف + کسر ۱ دقیقه از تایمر بدون جایزه سکه) ---
-        let defaultTasks = [
-            { id: 1, name: "کانال رسمی AFIX", url: "https://t.me/AfixWallet" }
+        // --- سیستم P2P دوطرفه کامل (خرید و فروش واسطه‌ای) ---
+        let myOrders = JSON.parse(localStorage.getItem('afix_my_orders')) || [];
+        let allMarketOrders = JSON.parse(localStorage.getItem('afix_market_orders')) || [
+            { id: 101, seller: "Saman_Official", amount: 10, priceToman: 10 * 300000, address: "0xAFIX_Escrow_Master_99" }
         ];
-        
+
+        function confirmSellOrder() {
+            let amount = parseFloat(document.getElementById('sell-amount').value);
+            if(!amount || amount <= 0) {
+                tg.showAlert('⚠️ لطفاً مقدار معتبری وارد کنید.');
+                return;
+            }
+            if(balance < amount) {
+                tg.showAlert('❌ موجودی شما برای ثبت این مقدار فروش کافی نیست!');
+                return;
+            }
+            // کسر از موجودی و انتقال به امانت بازار
+            balance -= amount;
+            localStorage.setItem('afix_balance', balance);
+            updateUI();
+
+            let order = {
+                id: Date.now(),
+                seller: userName,
+                amount: amount,
+                priceToman: Math.round(amount * livePriceToman),
+                address: "0xAFIX_Escrow_" + userId
+            };
+
+            myOrders.push(order);
+            allMarketOrders.push(order);
+            localStorage.setItem('afix_my_orders', JSON.stringify(myOrders));
+            localStorage.setItem('afix_market_orders', JSON.stringify(allMarketOrders));
+
+            closeModal('modal-sell');
+            renderMyOrders();
+            renderMarketOrders();
+            tg.showAlert('✅ سفارش فروش شما در بازار ثبت شد و ارز به حساب واسطه منتقل گردید.');
+            document.getElementById('sell-amount').value = '';
+        }
+
+        function renderMyOrders() {
+            let box = document.getElementById('my-sell-orders');
+            box.innerHTML = '';
+            if(myOrders.length === 0) {
+                box.innerHTML = '<p style="font-size: 11px; color: var(--text-secondary);">سفارش فروشی ثبت نکرده‌اید.</p>';
+                return;
+            }
+            myOrders.forEach(o => {
+                box.innerHTML += `<div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin-top: 6px; font-size: 11px;">
+                    <div>فروش: <b>${o.amount} AFIX</b></div>
+                    <div style="color: var(--accent-green);">مبلغ دریافتی: ${o.priceToman.toLocaleString()} تومان</div>
+                </div>`;
+            });
+        }
+
+        function renderMarketOrders() {
+            let list = document.getElementById('market-orders-list');
+            list.innerHTML = '';
+            if(allMarketOrders.length === 0) {
+                list.innerHTML = '<p style="font-size: 11px; color: var(--text-secondary);">هیچ سفارشی در بازار موجود نیست.</p>';
+                return;
+            }
+            allMarketOrders.forEach(o => {
+                list.innerHTML += `<div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--border-color); font-size: 12px;">
+                    <div>فروشنده: <b>${o.seller}</b></div>
+                    <div>مقدار: <b style="color: var(--accent-blue);">${o.amount} AFIX</b></div>
+                    <div style="color: var(--accent-green); margin: 4px 0;">قابل پرداخت: ${o.priceToman.toLocaleString()} تومان</div>
+                    <button class="btn-action" style="width: 100%; margin-top: 6px;" onclick="openBuyModal(${o.id})">خرید این سفارش</button>
+                </div>`;
+            });
+        }
+
+        let selectedOrderId = null;
+        function openBuyModal(orderId) {
+            selectedOrderId = orderId;
+            let order = allMarketOrders.find(o => o.id === orderId);
+            if(!order) return;
+            document.getElementById('buy-details').innerHTML = `
+                مقدار خرید: <b>${order.amount} AFIX</b><br>
+                مبلغ قابل واریز به کارت واسطه: <b style="color: var(--accent-green);">${order.priceToman.toLocaleString()} تومان</b><br>
+                شماره کارت / آدرس ولت واسطه شبکه:<br><code style="background: #000; padding: 4px; display: block; margin-top: 4px; color: var(--accent-blue);">${order.address}</code>
+            `;
+            openModal('modal-buy');
+        }
+
+        function verifyAndCompleteBuy() {
+            let txHash = document.getElementById('tx-hash-input').value;
+            if(!txHash || txHash.length < 5) {
+                tg.showAlert('⚠️ لطفاً شماره پیگیری یا هش تراکنش معتبری وارد کنید.');
+                return;
+            }
+            let orderIndex = allMarketOrders.findIndex(o => o.id === selectedOrderId);
+            if(orderIndex !== -1) {
+                let purchasedAmount = allMarketOrders[orderIndex].amount;
+                allMarketOrders.splice(orderIndex, 1);
+                localStorage.setItem('afix_market_orders', JSON.stringify(allMarketOrders));
+
+                balance += purchasedAmount;
+                localStorage.setItem('afix_balance', balance);
+                updateUI();
+
+                closeModal('modal-buy');
+                renderMarketOrders();
+                tg.showAlert(`🎉 تراکنش تایید شد! ${purchasedAmount} AFIX از واسطه به کیف پول شما واریز گردید.`);
+                document.getElementById('tx-hash-input').value = '';
+            }
+        }
+
+        // --- مأموریت‌ها ---
+        let defaultTasks = [{ id: 1, name: "کانال رسمی AFIX", url: "https://t.me/AfixWallet" }];
         let allTasks = JSON.parse(localStorage.getItem('afix_admin_tasks')) || defaultTasks;
         let completedTasks = JSON.parse(localStorage.getItem('afix_completed_tasks_' + userId)) || [];
 
         function renderTasks() {
             let listEl = document.getElementById('tasks-list');
             listEl.innerHTML = '';
-            
-            // فیلتر کردن مأموریت‌هایی که کاربر قبلاً انجام داده است
-            let availableTasks = allTasks.filter(task => !completedTasks.includes(task.id));
-
+            let availableTasks = allTasks.filter(t => !completedTasks.includes(t.id));
             if (availableTasks.length === 0) {
-                listEl.innerHTML = '<p style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px;">مأموریت جدیدی وجود ندارد! 🎉</p>';
+                listEl.innerHTML = '<p style="text-align: center; color: var(--text-secondary); font-size: 12px; padding: 15px;">مأموریت جدیدی وجود ندارد! 🎉</p>';
                 return;
             }
-
-            availableTasks.forEach((task) => {
+            availableTasks.forEach(task => {
                 listEl.innerHTML += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: #0b0e14; padding: 10px; border-radius: 10px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; margin-bottom: 8px;">
                         <div>
-                            <div style="font-weight: bold; font-size: 13px;">${task.name}</div>
-                            <div style="font-size: 11px; color: var(--accent-green);">پاداش: کسر ۱ دقیقه از تایمر ماینینگ</div>
+                            <div style="font-weight: bold; font-size: 12px;">${task.name}</div>
+                            <div style="font-size: 10px; color: var(--accent-green);">پاداش: کسر ۱ دقیقه از تایمر ماینینگ</div>
                         </div>
                         <button class="btn-action" onclick="completeTask(${task.id}, '${task.url}')">عضویت</button>
                     </div>
@@ -285,45 +466,37 @@
 
         function completeTask(taskId, url) {
             window.open(url, '_blank');
-            
-            // کسر ۱ دقیقه (۶۰۰۰۰ میلی‌ثانیه) از تایمر
             if (miningEndTime > new Date().getTime()) {
-                miningEndTime -= 60000; 
+                miningEndTime -= 60000;
                 localStorage.setItem('afix_mining_end', miningEndTime);
             }
-
-            // ثبت اینکه این مأموریت برای این کاربر انجام شده تا از لیستش حذف شود
             completedTasks.push(taskId);
             localStorage.setItem('afix_completed_tasks_' + userId, JSON.stringify(completedTasks));
-            
             renderTasks();
-            tg.showAlert('✅ عضویت تأیید شد! ۱ دقیقه از تایمر ماینینگ شما کم شد.');
-            checkMiningTimer();
+            tg.showAlert('✅ تایید شد! ۱ دقیقه از تایمر توربین ماینینگ کم شد.');
+            checkMiningEngine();
         }
 
         function addNewTask() {
             let name = document.getElementById('admin-channel-name').value;
             let url = document.getElementById('admin-channel-url').value;
             if(name && url) {
-                let newTask = { id: Date.now(), name, url };
-                allTasks.push(newTask);
+                allTasks.push({ id: Date.now(), name, url });
                 localStorage.setItem('afix_admin_tasks', JSON.stringify(allTasks));
                 renderTasks();
-                tg.showAlert('✅ کانال جدید با موفقیت اضافه شد.');
+                tg.showAlert('✅ مأموریت اضافه شد.');
                 document.getElementById('admin-channel-name').value = '';
                 document.getElementById('admin-channel-url').value = '';
             } else {
-                tg.showAlert('⚠️ لطفاً نام و لینک کانال را وارد کنید.');
+                tg.showAlert('⚠️ اطلاعات را کامل وارد کنید.');
             }
         }
-
         renderTasks();
 
-        // --- سیستم بنر مدیریت ---
+        // --- بنر مدیریت ---
         function uploadBanner() {
             let text = document.getElementById('admin-banner-text').value;
             let fileInput = document.getElementById('admin-banner-file');
-            
             if (fileInput.files && fileInput.files[0]) {
                 let reader = new FileReader();
                 reader.onload = function(e) {
@@ -331,41 +504,25 @@
                     localStorage.setItem('afix_banner_text', text);
                     localStorage.setItem('afix_banner_active', 'true');
                     checkBanner();
-                    tg.showAlert('✅ بنر جدید با موفقیت منتشر شد.');
+                    tg.showAlert('✅ بنر ارسال شد.');
                 }
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                tg.showAlert('⚠️ لطفاً یک تصویر انتخاب کنید.');
+                tg.showAlert('⚠️ لطفاً تصویر بنر را انتخاب کنید.');
             }
         }
-
-        function removeBanner() {
-            localStorage.removeItem('afix_banner_active');
-            document.getElementById('banner-modal').style.display = 'none';
-            tg.showAlert('🗑️ بنر غیرفعال و حذف شد.');
-        }
-
         function checkBanner() {
-            let isActive = localStorage.getItem('afix_banner_active');
-            if (isActive === 'true') {
-                let imgData = localStorage.getItem('afix_banner_img');
-                let text = localStorage.getItem('afix_banner_text');
-                document.getElementById('banner-img-element').src = imgData;
-                document.getElementById('banner-caption').innerText = text || "آخرین اخبار و اطلاعیه‌های شبکه AFIX";
+            if (localStorage.getItem('afix_banner_active') === 'true') {
+                document.getElementById('banner-img-element').src = localStorage.getItem('afix_banner_img');
+                document.getElementById('banner-caption').innerText = localStorage.getItem('afix_banner_text'] || "";
                 document.getElementById('banner-modal').style.display = 'flex';
             }
         }
-
-        function closeBannerModal() {
-            document.getElementById('banner-modal').style.display = 'none';
-        }
-
         setTimeout(checkBanner, 1000);
 
-        // نوسان‌ساز قیمت ارز (روی کانال ۳۰۰ هزار تومان)
+        // نوسان‌ساز قیمت
         setInterval(() => {
-            let change = (Math.random() * 2000 - 950); // نوسان طبیعی چند صد تومانی
-            livePriceToman = Math.round(300000 + change);
+            livePriceToman = Math.round(300000 + (Math.random() * 2000 - 950));
             updateUI();
         }, 15000);
     </script>
