@@ -40,18 +40,14 @@
         .mining-reward { font-size: 14px; color: var(--text-secondary); }
         .status-text { margin-top: 25px; font-size: 15px; font-weight: bold; color: var(--accent-green); text-align: center; }
         
-        /* Cards & UI Elements */
+        /* Cards */
         .card { background: var(--card-bg); border-radius: 16px; padding: 16px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .card-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         
-        /* Tables & Buttons */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: center; font-size: 13px; }
-        th, td { padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        th { color: var(--text-secondary); }
+        /* Buttons & Inputs */
         .btn-action { background: var(--accent-glow); color: #000; border: none; padding: 6px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .btn-success { background: var(--accent-green); color: #000; border: none; padding: 10px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .btn-danger { background: var(--danger); color: #fff; border: none; padding: 6px 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-
         input[type="text"], input[type="file"] { width: 100%; padding: 10px; background: #0b0e14; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; margin-bottom: 10px; font-size: 13px; }
 
         /* Banner Modal Popup */
@@ -70,7 +66,7 @@
 </head>
 <body>
 
-    <!-- پاپ‌آپ بنر مدیریت با دکمه ضربدر بستن -->
+    <!-- پاپ‌آپ بنر مدیریت -->
     <div id="banner-modal">
         <div class="banner-box">
             <button class="close-banner" onclick="closeBannerModal()">×</button>
@@ -83,7 +79,7 @@
     <header>
         <div class="user-info">
             <div class="avatar-box">
-                <img id="user-avatar" src="images/logo.png" alt="Logo">
+                <img id="user-avatar" src="images/logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/45'">
             </div>
             <div>
                 <div id="username" style="font-weight: bold; font-size: 14px;">کاربر AFIX</div>
@@ -99,7 +95,7 @@
         <div id="tab-mining" class="tab-content active">
             <div class="mining-container">
                 <div class="circle-progress" id="mine-btn" onclick="startMining()">
-                    <img src="images/logo.png" class="circle-logo" alt="Logo">
+                    <img src="images/logo.png" class="circle-logo" alt="Logo" onerror="this.src='https://via.placeholder.com/60'">
                     <div class="mining-title">استخراج AFIX</div>
                     <div class="mining-reward">۵ واحد / ۲۴ ساعت</div>
                 </div>
@@ -121,18 +117,18 @@
         <div id="tab-p2p" class="tab-content">
             <div class="card">
                 <div class="card-title">🛒 بازار P2P (خرید و فروش امن)</div>
-                <p style="font-size: 12px; color: var(--text-secondary);">قیمت لحظه‌ای هر واحد AFIX: <b id="live-price" style="color: var(--accent-green);">3,150 تومان</b></p>
+                <p style="font-size: 12px; color: var(--text-secondary);">قیمت لحظه‌ای هر واحد AFIX: <b id="live-price" style="color: var(--accent-green);">300,000 تومان</b></p>
                 <button class="btn-success" onclick="openOrderModal()">+ ثبت سفارش فروش AFIX</button>
             </div>
         </div>
 
-        <!-- تب چهارم: مأموریت‌ها (کم شدن ۱ دقیقه از تایمر با عضویت) -->
+        <!-- تب چهارم: مأموریت‌ها -->
         <div id="tab-tasks" class="tab-content">
             <div class="card">
                 <div class="card-title">🎯 مرکز مأموریت‌ها</div>
-                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">با عضویت در هر کانال، پاداش بگیرید و <b>۱ دقیقه</b> از تایمر ماینینگ خود کم کنید!</p>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">با عضویت در هر کانال، <b>۱ دقیقه</b> از تایمر ماینینگ خود کم کنید!</p>
                 <div id="tasks-list">
-                    <!-- کانال‌های ثبت شده توسط ادمین اینجا لود میشن -->
+                    <!-- مأموریت‌ها اینجا لود میشن -->
                 </div>
             </div>
         </div>
@@ -143,7 +139,7 @@
                 <div class="card-title" style="color: var(--danger);">⚙️ پنل مدیریت ادمین</div>
                 
                 <h4 style="font-size: 14px; margin-top: 10px; color: var(--accent-glow);">➕ افزودن کانال مأموریت</h4>
-                <input type="text" id="admin-channel-name" placeholder="نام کانال (مثلاً کانال رسمی AFIX)">
+                <input type="text" id="admin-channel-name" placeholder="نام کانال">
                 <input type="text" id="admin-channel-url" placeholder="لينک کانال (https://t.me/...)">
                 <button class="btn-success" onclick="addNewTask()">ثبت کانال مأموریت</button>
 
@@ -190,7 +186,6 @@
         let userName = user ? (user.first_name || user.username) : "سامان";
         document.getElementById('username').innerText = userName;
 
-        // چک کردن دسترسی ادمین (آیدی عددی: 8443938939)
         if (userId === 8443938939) {
             document.getElementById('admin-badge').style.display = 'block';
             document.getElementById('nav-admin').style.display = 'flex';
@@ -199,13 +194,14 @@
         }
 
         let balance = parseFloat(localStorage.getItem('afix_balance')) || 0.00;
-        let livePriceToman = 3150;
+        let livePriceToman = 300000; // قیمت پایه ۳۰۰ هزار تومان
         updateUI();
 
         function updateUI() {
             document.getElementById('balance').innerText = balance.toFixed(2);
             document.getElementById('wallet-balance').innerText = balance.toFixed(2);
-            document.getElementById('toman-value').innerText = (balance * livePriceToman).toLocaleString();
+            document.getElementById('toman-value').innerText = Math.round(balance * livePriceToman).toLocaleString();
+            document.getElementById('live-price').innerText = livePriceToman.toLocaleString() + ' تومان';
         }
 
         function switchTab(tabName, element) {
@@ -215,7 +211,7 @@
             element.classList.add('active');
         }
 
-        // --- سیستم ماینینگ و کسر ۱ دقیقه از تایمر با مأموریت ---
+        // --- سیستم ماینینگ ---
         let miningEndTime = parseInt(localStorage.getItem('afix_mining_end')) || 0;
 
         function checkMiningTimer() {
@@ -241,7 +237,7 @@
 
         function startMining() {
             let now = new Date().getTime();
-            miningEndTime = now + (24 * 60 * 60 * 1000); // ۲۴ ساعت
+            miningEndTime = now + (24 * 60 * 60 * 1000);
             localStorage.setItem('afix_mining_end', miningEndTime);
             
             balance += 5.0;
@@ -254,41 +250,54 @@
         setInterval(checkMiningTimer, 1000);
         checkMiningTimer();
 
-        // --- مدیریت مأموریت‌ها و کسر ۱ دقیقه‌ای ---
+        // --- مدیریت مأموریت‌ها (یک‌بار مصرف + کسر ۱ دقیقه از تایمر بدون جایزه سکه) ---
         let defaultTasks = [
-            { name: "کانال رسمی AFIX", url: "https://t.me/AfixWallet" }
+            { id: 1, name: "کانال رسمی AFIX", url: "https://t.me/AfixWallet" }
         ];
-        let tasks = JSON.parse(localStorage.getItem('afix_tasks')) || defaultTasks;
+        
+        let allTasks = JSON.parse(localStorage.getItem('afix_admin_tasks')) || defaultTasks;
+        let completedTasks = JSON.parse(localStorage.getItem('afix_completed_tasks_' + userId)) || [];
 
         function renderTasks() {
             let listEl = document.getElementById('tasks-list');
             listEl.innerHTML = '';
-            tasks.forEach((task, index) => {
+            
+            // فیلتر کردن مأموریت‌هایی که کاربر قبلاً انجام داده است
+            let availableTasks = allTasks.filter(task => !completedTasks.includes(task.id));
+
+            if (availableTasks.length === 0) {
+                listEl.innerHTML = '<p style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px;">مأموریت جدیدی وجود ندارد! 🎉</p>';
+                return;
+            }
+
+            availableTasks.forEach((task) => {
                 listEl.innerHTML += `
                     <div style="display: flex; justify-content: space-between; align-items: center; background: #0b0e14; padding: 10px; border-radius: 10px; margin-bottom: 8px;">
                         <div>
                             <div style="font-weight: bold; font-size: 13px;">${task.name}</div>
-                            <div style="font-size: 11px; color: var(--accent-green);">پاداش: کاهش ۱ دقیقه از تایمر</div>
+                            <div style="font-size: 11px; color: var(--accent-green);">پاداش: کسر ۱ دقیقه از تایمر ماینینگ</div>
                         </div>
-                        <button class="btn-action" onclick="completeTask(${index}, '${task.url}')">انجام و عضویت</button>
+                        <button class="btn-action" onclick="completeTask(${task.id}, '${task.url}')">عضویت</button>
                     </div>
                 `;
             });
         }
 
-        function completeTask(index, url) {
+        function completeTask(taskId, url) {
             window.open(url, '_blank');
             
-            // کسر یک دقیقه (۶۰۰۰۰ میلی‌ثانیه) از تایمر ماینینگ
+            // کسر ۱ دقیقه (۶۰۰۰۰ میلی‌ثانیه) از تایمر
             if (miningEndTime > new Date().getTime()) {
                 miningEndTime -= 60000; 
                 localStorage.setItem('afix_mining_end', miningEndTime);
             }
+
+            // ثبت اینکه این مأموریت برای این کاربر انجام شده تا از لیستش حذف شود
+            completedTasks.push(taskId);
+            localStorage.setItem('afix_completed_tasks_' + userId, JSON.stringify(completedTasks));
             
-            balance += 2.0; // پاداش نقدی کوچک برای انجام مأموریت
-            localStorage.setItem('afix_balance', balance);
-            updateUI();
-            tg.showAlert('✅ مأموریت تأیید شد! ۱ دقیقه از تایمر ماینینگ شما کم شد.');
+            renderTasks();
+            tg.showAlert('✅ عضویت تأیید شد! ۱ دقیقه از تایمر ماینینگ شما کم شد.');
             checkMiningTimer();
         }
 
@@ -296,10 +305,11 @@
             let name = document.getElementById('admin-channel-name').value;
             let url = document.getElementById('admin-channel-url').value;
             if(name && url) {
-                tasks.push({name, url});
-                localStorage.setItem('afix_tasks', JSON.stringify(tasks));
+                let newTask = { id: Date.now(), name, url };
+                allTasks.push(newTask);
+                localStorage.setItem('afix_admin_tasks', JSON.stringify(allTasks));
                 renderTasks();
-                tg.showAlert('✅ کانال جدید با موفقیت به مأموریت‌ها اضافه شد.');
+                tg.showAlert('✅ کانال جدید با موفقیت اضافه شد.');
                 document.getElementById('admin-channel-name').value = '';
                 document.getElementById('admin-channel-url').value = '';
             } else {
@@ -309,7 +319,7 @@
 
         renderTasks();
 
-        // --- سیستم بنر مدیریت با پاپ‌آپ و دکمه ضربدر ---
+        // --- سیستم بنر مدیریت ---
         function uploadBanner() {
             let text = document.getElementById('admin-banner-text').value;
             let fileInput = document.getElementById('admin-banner-file');
@@ -350,8 +360,14 @@
             document.getElementById('banner-modal').style.display = 'none';
         }
 
-        // بررسی نمایش بنر هنگام ورود کاربر
         setTimeout(checkBanner, 1000);
+
+        // نوسان‌ساز قیمت ارز (روی کانال ۳۰۰ هزار تومان)
+        setInterval(() => {
+            let change = (Math.random() * 2000 - 950); // نوسان طبیعی چند صد تومانی
+            livePriceToman = Math.round(300000 + change);
+            updateUI();
+        }, 15000);
     </script>
 </body>
 </html>
